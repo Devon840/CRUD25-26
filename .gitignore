@@ -1,0 +1,3 @@
+venv/
+crudApp/db.sqlite3
+*.pyc
