@@ -6,7 +6,7 @@
 <h5>Welcome to the dashboards</h5>
 <hr>
 
-<a class="btn btn-outline-primary btn-sm" href="{% url 'dashboard' %}">Create record</a>
+<a class="btn btn-outline-primary btn-sm" href="{% url 'create_record' %}">Create record</a>
 
 
 <hr>
@@ -28,17 +28,17 @@
 
 
 <tbody>
-    {% if records %}
-        {% for record in records %}
+    {% if Records %}
+        {% for record in Records %}
         <tr>
-            <td>{record.id{}}</td>
+            <td>{{record.id}}</td>
             <td>{{record.first_name}}</td>
             <td>{{record.email}}</td>
             <td>{{record.phone}}</td>
             <td>{{record.address}}</td>
             <td>{{record.city}}</td>
             <td>{{record.creation_data}}</td>
-            <td>to do..</td>
+            <td><a href="{% url 'record' record.id %}">view</a></td>
         </tr>
         {% endfor %}
         {% endif %}
@@ -48,9 +48,9 @@
 
 <h1>Welcome to the dashboard {{user}}</h1>
 
-<h3>Welcome th the dashbaord {{user}}</h3>
+<!--<h3>Welcome th the dashbaord {{user}}</h3>-->
  
-{% for record in records %}
+{% for record in Records %}
     {{record.id}}
     {{record.first_name}}
     {{record.last_name}}
