@@ -15,15 +15,14 @@
           </a>
         </li>
         
+        {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" href="#">Pricing </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}">login</a>
-        </li>
+        
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">logout</a>
         </li>
@@ -33,6 +32,15 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'create_record' %}">create record</a>
         </li>
+
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">login</a>
+        </li>
+
+        {% endif %}
+
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
           <div class="dropdown-menu">

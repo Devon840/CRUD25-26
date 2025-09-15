@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm, LoginForm, CreateRecordForm#, UpdateRecordsForm
+from .forms import CreateUserForm, LoginForm, CreateRecordForm, UpdateRecordsForm
 from django.contrib.auth.models import auth
+from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Record
@@ -86,29 +87,25 @@ def singular_record(request, pk):
     return render(request, 'pages/record.html', context=context)
 
 @login_required(login_url='login')
-def update_record():#request, pk#):
-    pass
-    #record = Record.objects.get(id=pk)
-    #record.update()
-    #return render(request, 'pages/update_record.html')
-    #return redirect("dashboard")
+def update_record(request, pk):
+    record = Record.objects.get(id=pk)
+    form = UpdateRecordsForm(instance=record)
 
-    #form = UpdateRecordsForm()
-    #if request.method == 'POST':
-       # form = UpdateRecordsForm(request.POST)
-       # if form.is_valid():
-       #     form.save()
-        #    return redirect("dashboard")
-        
-   # context = {'create_form': form}
-    #return render(request, 'pages/update_record.html', context=context)
+    if request.method == "POST":
+        form = UpdateRecordsForm(request.POST, instance=record)
+        if form.is_valid:
+            form.save()
+            messages.success(request, 'Record updated successfully!')
+            return redirect("dashboard")
+    context = {'update_form': form}
+    return render(request, 'pages/update_record.html', context=context)
 
 
 @login_required(login_url='login')
 def delete_record(request, pk):
     record = Record.objects.get(id=pk)
     #record.delete()
-    context = {"update_record":record}
-
+    #context = {"update_record":record}
+    record.delete()
     return redirect("dashboard")
     #return render(request, 'pages/update_record.html', context=context)
